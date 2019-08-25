@@ -79,48 +79,62 @@
 
          //fonction permettant de creer code pour un Beneficiaire
         public function genererCode(){
-            require_once('ConnectionBD.php');
-            while($this->verifierCode($this->codeB)==true){
+            include('ConnectionBD.php');
+            $this->CodeB = "BEN-" . rand(100000, 999999);      
+            while($this->verifierCode($this->CodeB)==1){
                 $this->codeB = "BEN-" . rand(100000, 999999);        
             }
-                $this->codeB= "BEN-" . rand(100000, 999999);
-                $stmt->closeCursor();
+      
       }
 
         //fonction permettant de verifier code
         public function verifierCode($code){
-            require_once('ConnectionBD.php');
-             $selection="SELECT code from Parrain where code=?";
-            $execution->execute(array($code));
-            if($result=$execution->fetch()){
-                return true;
-            }else{
-                return false;
-            }
+            include('ConnectionBD.php');
+             $selection=$BDD->prepare("SELECT CodeB from Beneficiaire where CodeB=?");
+            $selection->execute(array($code));
+            return $selection->rowCount();
             $stmt->closeCursor();
         }
 
          //fonction permettant de faire une demande d'inscription a un programme
          public function Demande_Inscription(){
-            require_once('ConnectionBD.php');
+            include('ConnectionBD.php');    
             $stmt = $BDD->prepare("INSERT into Beneficiaire(CodeB,IDPR,IDP,Nom,Prenom,Age,Sexe,Date_de_Naissance,Lieu_de_Naissance,Date_Entree_Programme,Niveau_Scolaire,Date_Sortie_Programme,Statut,Adresse,Telephone,Zone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->execute(array($this->CodeB,$this->IDPR,$this->IDP,$this->Nom,$this->Prenom,$this->Age,$this->Sexe,$this->Date_de_Naissance,$this->Date_Entree_Programme,$this->Niveau_Scolaire,$this->Date_Sortie_Programme,$this->Statut,$this->Adresse,$this->Telephone,$this->Zone));
             $stmt->closeCursor();
             return $stmt;
         }
 
-        //fonction permettant de lister les bBeneficiaire
-        public function Lister_BEN(){
-            require_once('ConnectionBD.php');
-            $stmt = $BDD->("SELECT * from Beneficiaire");
-            $stmt->execute();
-            $stmt->closeCursor();
+         //fonction permettant d'inscrire un beneficiare dans ONG
+         public function Inscrire_Benefiaire(){
+            include('ConnectionBD.php');
+            $this->genererCode();
+            $stmt = $BDD->prepare("INSERT into Beneficiaire(CodeB,Nom,Prenom,Age,Sexe,Date_de_Naissance,Lieu_de_Naissance,Niveau_Scolaire,Statut,Adresse,Telephone,Zone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->execute(array($this->CodeB,$this->Nom,$this->Prenom,$this->Age,$this->Sexe,$this->Date_de_Naissance,$this->Lieu_de_Naissance,$this->Niveau_Scolaire,$this->Statut,$this->Adresse,"+509".$this->Telephone,$this->Zone));
             return $stmt;
+         
         }
 
+        //fonction permettant de lister les bBeneficiaire
+        public function Lister_BEN(){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Beneficiaire");
+            $stmt->execute();
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
+        //fonction permettant de tester l'existence du numero du beneficiaire
+        public function checkTel($number){
+            include('ConnectionBD.php');
+            $stmt=$BDD->prepare("SELECT Telephone from Beneficiaire where Telephone=?");
+            $stmt->execute(array($number));
+            $stmt->closeCursor();
+            return $stmt->rowCount();
+        }
         //fonction permettant de modifier un Beneficiaire
         public function Modifier_BEN($id){
-            require_once('ConnectionBD.php');
+            include('ConnectionBD.php');
             $stmt = $BDD->prepare("UPDATE Beneficiaire set Nom=?,Prenom=?,Age=?,Sexe=?,Date_de_Naissance=?,Lieu_de_Naissance=?,Date_Entree_Programme=?,Niveau_Scolaire=?,Date_Sortie_Programme=?,Statut=?,Adresse=?,Telephone=?,Zone=?  where ID=?");
             $stmt->execute(array($this->Nom,$this->Prenom,$this->Age,$this->Sexe,$this->Date_de_Naissance,$this->Date_Entree_Programme,$this->Niveau_Scolaire,$this->Date_Sortie_Programme,$this->Statut,$this->Adresse,$this->Telephone,$this->Zone,$id));
             return $stmt;
@@ -128,7 +142,7 @@
 
          //fonction permettant de Lister Par ID
          public function Lister_ID($id){
-            require_once('ConnectionBD.php');
+            include('ConnectionBD.php');
             $stmt = $BDD->prepare("SELECT * from Beneficiaire where ID=?");
             $stmt->execute(array($id));
             $stmt->closeCursor();

@@ -8,3 +8,5 @@
   <!-- CSS Files -->
   <link href="../assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <link href="CSS/dataTables.bootstrap.css" rel="stylesheet" />
+  <link href="CSS/style.css" rel="stylesheet" />
+  <link href="CSS/datatables.min.css" rel="stylesheet" />

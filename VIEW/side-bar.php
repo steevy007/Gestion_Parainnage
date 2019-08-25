@@ -121,7 +121,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerProgramme.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Programme
             </a>
           </li>
@@ -136,7 +136,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerBeneficiaire.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Beneficiaire
             </a>
           </li>

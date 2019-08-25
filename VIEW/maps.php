@@ -16,6 +16,10 @@
 <?php
 session_start();
 if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
+
+  require_once('../MODEL/Programme.php');
+  $PR=new programme("","","","","","","","");
+  $resultat=$PR->Lister_PR1();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,8 +55,83 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
-          <div class="card shadow border-0">
-            <div id="map-canvas" class="map-canvas" data-lat="40.748817" data-lng="-73.985428" style="height: 600px;"></div>
+          <div class="card shadow border-0 b1">
+            <form action="../CONTROLLER/AllouerBudget.controller.php" method="POST">
+
+
+              <div class="row">
+                <div class="col col-lg-12">
+                  <div class="form-group">
+                    <label for="">Selectionner le code du Programme</label>
+                    <select name="codeP" id="" class="form-control" > 
+                      <?php
+                        while($data=$resultat->fetch()){
+                      ?>
+                        <option value="<?php print($data['CodePR'])?>"><?php print($data['CodePR'])?></option>
+                      <?php
+                        }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+
+                
+              </div>
+
+              <div class="row">
+                <div class="col col-lg-6">
+                  <div class="form-group">
+                    <label for="">Montant Budget</label>
+                    <input type="number" name="montant" class="form-control" placeholder="Montant du Budget" required>
+                  </div>
+                </div>
+
+
+                <div class="col col-lg-6">
+                  <div class="form-group">
+                    <label for="">Devise</label>
+                    <select name="devise" id="" class="form-control" >
+                    <option value="US">US</option>
+                      <option value="USCA">USCA</option>
+                      <option value="PESO">PESO</option>
+                      <option value="EURO">EURO</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date debut Budget</label>
+                    <input type="date" name="dateD" class="form-control" required>
+                  </div>
+                </div>
+
+                <div class="col col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date Fin Budget</label>
+                    <input type="date" name="dateF" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col col-lg-12">
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea class="form-control" name="desc" id=""  rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <center><i style="color:red"></i></center>
+
+              <div class="text-right">
+                <button type="submit" name="btn" class="btn btn-primary">Allouer</button>
+              </div>
+
+            </form>
           </div>
         </div>
       </div>

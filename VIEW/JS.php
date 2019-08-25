@@ -6,8 +6,8 @@
   <script src="../assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
   <!--   Argon JS   -->
   <script src="../assets/js/argon-dashboard.min.js?v=1.1.0"></script>
-  <script src="JS/dataTables.bootstrap.js"></script>
-  <script src="JS/jquery.dataTables.js"></script>
+  <script src="JS/datatables.min.js"></script>
+
   <script src="JS/script.js"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>

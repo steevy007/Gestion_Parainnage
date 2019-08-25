@@ -1,0 +1,22 @@
+<?php
+require_once('../MODEL/Programme.php');
+$PR=new programme("","","","","","","","");
+$reponse="";
+    if(isset($_GET['ID'])){
+        $reponse=$PR->Lister_ID($_GET['ID']);
+        while($data=$reponse->fetch()){
+            $PR->setID($data['ID']);
+            $PR->setCodePR($data['CodePR']);
+            $PR->setNom($data['Nom']);
+            $PR->setDate_DebutP($data['date_DebutP']);
+            $PR->setDate_FinP($data['date_FP']);
+            $PR->setDescription($data['Description']);
+            $PR->setDate_CreationP($data['date_CreationP']);
+            $PR->setEtat_Budget($data['Etat_Budget']);
+        }
+        $reponse=$PR->Archiver_PR($_GET['ID']);
+        if($reponse){
+            header('Location:../VIEW/ListerProgramme.php');
+        }
+    }
+?>
