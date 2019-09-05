@@ -4,7 +4,7 @@
         private $CodeE;
         private $IDB;
         private $Age;
-        private $Poid
+        private $Poid;
         private $Hauteur;
         private $Perimetre_Branchial;
         private $Date_Rendez_Vous;
@@ -65,31 +65,29 @@
         
          //fonction permettant de creer code 
          public function genererCode(){
-            require_once('ConnectionBD.php');
-            while($this->verifierCode($this->codeE)==true){
+            include('ConnectionBD.php');
+            $this->CodeE= "EV-" . rand(100000, 999999);
+            while($this->verifierCode($this->CodeE)==1){
                 $this->codeB = "EV-" . rand(100000, 999999);        
             }
-                $this->codeB= "EV-" . rand(100000, 999999);
-                $stmt->closeCursor();
+                
+            
       }
 
         //fonction permettant de verifier code
         public function verifierCode($code){
-            require_once('ConnectionBD.php');
-             $selection="SELECT code from Parrain where code=?";
-            $execution->execute(array($code));
-            if($result=$execution->fetch()){
-                return true;
-            }else{
-                return false;
-            }
+            include('ConnectionBD.php');
+             $selection=$BDD->prepare("SELECT code from Evaluation where code=?");
+            $selection->execute(array($code));
+            return $selection->rowCount();
             $stmt->closeCursor();
         }
 
          //fonction permettant de prendre un rendez vous medicale
          public function Rendez_Vous(){
-            require_once('ConnectionBD.php');
-            $stmt = $BDD->prepare("INSERT into Evaluation(CodeE,IDB,Poid,Age,Hauteur,Perimetre_Branchial,Date_Rendez_Vous,References_Hopital,Maladie,Diagnostique,Traitement,Vaccin) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            include('ConnectionBD.php');
+            $this->genererCode();
+            $stmt = $BDD->prepare("INSERT into Evaluation(Code,IDB,Poid,Age,Hauteur,Perimetr_B,Date_R,Reference,Maladie,Diagnostique,Traitement,Vaccin) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->execute(array($this->CodeE,$this->IDB,$this->Poid,$this->Age,$this->Hauteur,$this->Perimetre_Branchial,$this->Date_Rendez_Vous,$this->References_Hopital,$this->Maladie,$this->Diagnostique,$this->Traitement,$this->Vaccin));
             $stmt->closeCursor();
             return $stmt;
@@ -97,28 +95,62 @@
 
            //fonction permettant de lister les Evaluation
            public function Lister_EVA(){
-            require_once('ConnectionBD.php');
-            $stmt = $BDD->("SELECT * from Evaluation");
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Evaluation");
             $stmt->execute();
-            $stmt->closeCursor();
             return $stmt;
+            $stmt->closeCursor();
+        }
+
+
+        //fonction permettant de verifier si evaluation est deja prise
+        public function Verifier_IDB($code){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT IDB from Evaluation where IDB=?");
+            $stmt->execute(array($code));
+            return $stmt->rowCount();
+            $stmt->closeCursor();
         }
 
               //fonction permettant de modifier un Evaluation
-              public function Modifier_BEN($id){
-                require_once('ConnectionBD.php');
-                $stmt = $BDD->prepare("UPDATE Beneficiaire set Poid=?,Age=?,Hauteur=?,Perimetre_Branchial=?,Date_Rendez_Vous=?,References_Hopital=?,Maladie=?,Diagnostique=?,Traitement=?,Vaccin=?   where ID=?");
+              public function Modifier_EV($id){
+                include('ConnectionBD.php');
+                $stmt = $BDD->prepare("UPDATE Evaluation set Poid=?,Age=?,Hauteur=?,Perimetr_B=?,Date_R=?,Reference=?,Maladie=?,Diagnostique=?,Traitement=?,Vaccin=?   where ID=?");
                 $stmt->execute(array($this->Poid,$this->Age,$this->Hauteur,$this->Perimetre_Branchial,$this->Date_Rendez_Vous,$this->References_Hopital,$this->Maladie,$this->Diagnostique,$this->Traitement,$this->Vaccin,$id));
                 return $stmt;
             }
     
              //fonction permettant de Lister Par ID
              public function Lister_ID($id){
-                require_once('ConnectionBD.php');
+                include('ConnectionBD.php');
                 $stmt = $BDD->prepare("SELECT * from Evaluation where ID=?");
                 $stmt->execute(array($id));
-                $stmt->closeCursor();
                 return $stmt;
             }
+
+
+            
+        //fonction permettant d'archiver un Evaluation
+        public function Archiver_BE($id){
+            $reponse=false;
+            include('ConnectionBD.php'); 
+            $stmt = $BDD->prepare("INSERT into archive_evaluation(ID,Code,IDB,Poid,Age,Hauteur,Perimetr_B,Date_R,Reference,Maladie,Diagnostique,Traitement,Vaccin) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->execute(array($this->IDE,$this->CodeE,$this->IDB,$this->Poid,$this->Age,$this->Hauteur,$this->Perimetre_Branchial,$this->Date_Rendez_Vous,$this->References_Hopital,$this->Maladie,$this->Diagnostique,$this->Traitement,$this->Vaccin));
+            if($stmt){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt1=$BDD->prepare("DELETE from Evaluation where ID=?");
+            $stmt1->execute(array($id));
+            if($stmt1){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt->closeCursor();
+            $stmt1->closeCursor();
+            return $reponse;
+        }
     }
 ?>

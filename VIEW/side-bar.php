@@ -95,7 +95,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./profile.php">
+            <a class="nav-link " href="./Parrain.php">
               <i class=""><img src="ICONES/icons8_People_24px.png" alt=""></i> Enregistrer Parrain
             </a>
           </li>
@@ -106,8 +106,8 @@
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="./ListUser.php">
-              <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Les Utilisateurs
+            <a class="nav-link" href="">
+              <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Inscrire Beneficiant
             </a>
           </li>
           <li class="nav-item">
@@ -116,8 +116,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./Consultation.php">
               <i class=""><img src="ICONES/icons8_Hospital_24px.png" alt=""></i> Consultation
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class=""><img src="ICONES/icons8_Hospital_24px.png" alt=""></i>Parrainnage
             </a>
           </li>
           <li class="nav-item">
@@ -131,7 +136,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerParrain.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Parrain
             </a>
           </li>
@@ -141,7 +146,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerConsultation.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Rendez-Vous
             </a>
           </li>
@@ -149,18 +154,28 @@
           <?php
             }else{
           ?>
+           <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Inscrire Beneficiant
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link " href="./tables.php">
               <i class=""><img src="ICONES/icons8_User_Groups_24px_1.png" alt=""></i> Inscrire Beneficiaire
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./Consultation.php">
               <i class=""><img src="ICONES/icons8_Hospital_24px.png" alt=""></i> Consultation
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="#">
+              <i class=""><img src="ICONES/icons8_Hospital_24px.png" alt=""></i>Parrainnage
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./ListerProgramme.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Programme
             </a>
           </li>
@@ -170,21 +185,21 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerParrain.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Parrain
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerBeneficiaire.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Beneficiaire
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerConsultation.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Rendez-Vous
             </a>
           </li>
-          <?php
+<?php
             }
           ?>
         </ul>

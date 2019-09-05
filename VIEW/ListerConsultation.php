@@ -16,10 +16,9 @@
 <?php
 session_start();
 if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
-    require_once('../MODEL/Beneficiaire.php');
-    $BE=new Beneficiaire("","","","","","","","","","","","","","","","","");
-    $reponse=$BE->Lister_BEN();
-
+    require_once('../MODEL/Evaluation.php');
+    $EV=new Evaluation("","","","","","","","","","","","","");
+    $reponse=$EV->Lister_EVA();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +27,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-   Lister Beneficiaire
+   Lister Rendez-Vous
   </title>
   <?php require_once('STYLES.php') ?>
 </head>
@@ -40,7 +39,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Beneficiaire</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Rendez-Vous</a>
         <!-- Form -->
        
         <!-- User -->
@@ -64,115 +63,109 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     <th class="th-sm">Action
 
       </th>
-      <th class="th-sm">Code Beneficiaire
-
-      </th>
-      <th class="th-sm">Nom Beneficiaire
-
-      </th>
-      <th class="th-sm">Prenom Beneficiaire
+      <th class="th-sm">Code Evaluation
 
       </th>
       <th class="th-sm">Age
 
       </th>
-      <th class="th-sm">Sexe
+      <th class="th-sm">Poid
 
       </th>
-      <th class="th-sm">Date de Naissance
+      <th class="th-sm">Hauteur
 
       </th>
-      <th class="th-sm">Lieu de Naissance
+      <th class="th-sm">Perimetre Branchial
 
       </th>
-      <th class="th-sm">Niveau Scolaire
+      <th class="th-sm">Date Rendez-Vous
 
       </th>
-      <th class="th-sm">Statut
+      <th class="th-sm">References Hopital
 
       </th>
-      <th class="th-sm">Adresse
+      <th class="th-sm">Maladie
 
       </th>
-      <th class="th-sm">Telephone
+      <th class="th-sm">Diagnostique
 
       </th>
-      <th class="th-sm">Zone
+      <th class="th-sm">Traitement
 
       </th>
+      <th class="th-sm">Vaccin
+
+      </th>
+
     </tr>
   </thead>
   <tbody>
-  <?php
+    <?php
         while($data=$reponse->fetch()){
-            
     ?>
         <tr>
         <td>
-              <a href="../CONTROLLER/ArchiverBeneficiaire.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
-                <a  href="../CONTROLLER/EditBeneficiaire.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
+              <a href="../CONTROLLER/ArchiverEvaluation.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
+                <a  href="../CONTROLLER/EditEvaluation.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
                 <input type="hidden" <?php ?>>
             </td>
-            <td><?php print($data['CodeB']) ?></td>
-            <td><?php print($data['Nom']) ?></td>
-            <td><?php print($data['Prenom']) ?></td>
+            <td><?php print($data['Code']) ?></td>
             <td><?php print($data['Age']) ?></td>
-            <td><?php print($data['Sexe']) ?></td>
-            <td><?php print($data['Date_de_Naissance']) ?></td>
-            <td><?php print($data['Lieu_de_Naissance']) ?></td>
-            <td><?php print($data['Niveau_Scolaire']) ?></td>
-            <td><?php print($data['Statut']) ?></td>
-            <td><?php print($data['Adresse']) ?></td>
-            <td><?php print($data['Telephone']) ?></td>
-            <td><?php print($data['Zone']) ?></td>
+            <td><?php print($data['Poid']) ?></td>
+            <td><?php print($data['Hauteur']) ?></td>
+            <td><?php print($data['Perimetr_B']) ?></td>
+            <td><?php print($data['Date_R']) ?></td>
+            <td><?php print($data['Reference']) ?></td>
+            <td><?php print($data['Maladie']) ?></td>
+            <td><?php print($data['Diagnostique']) ?></td>
+            <td><?php print($data['Traitement']) ?></td>
+            <td><?php print($data['Vaccin']) ?></td>
             
-           
         </tr>
     <?php
-    }
+        }
     ?>
   </tbody>
   <tfoot>
-  <th class="th-sm">Action
+  <tr>
+    <th class="th-sm">Action
 
-</th>
-<th class="th-sm">Code Beneficiaire
+      </th>
+      <th class="th-sm">Code Evaluation
 
-</th>
-<th class="th-sm">Nom Beneficiaire
+      </th>
+      <th class="th-sm">Age
 
-</th>
-<th class="th-sm">Prenom Beneficiaire
+      </th>
+      <th class="th-sm">Poid
 
-</th>
-<th class="th-sm">Age
+      </th>
+      <th class="th-sm">Hauteur
 
-</th>
-<th class="th-sm">Sexe
+      </th>
+      <th class="th-sm">Perimetre Branchial
 
-</th>
-<th class="th-sm">Date de Naissance
+      </th>
+      <th class="th-sm">Date Rendez-Vous
 
-</th>
-<th class="th-sm">Lieu de Naissance
+      </th>
+      <th class="th-sm">References Hopital
 
-</th>
-<th class="th-sm">Niveau Scolaire
+      </th>
+      <th class="th-sm">Maladie
 
-</th>
-<th class="th-sm">Statut
+      </th>
+      <th class="th-sm">Diagnostique
 
-</th>
-<th class="th-sm">Adresse
+      </th>
+      <th class="th-sm">Traitement
 
-</th>
-<th class="th-sm">Telephone
+      </th>
+      <th class="th-sm">Vaccin
 
-</th>
-<th class="th-sm">Zone
+      </th>
 
-</th>
-</tr>
+    </tr>
   </tfoot>
 </table>
             </div>

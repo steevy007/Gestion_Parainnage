@@ -124,6 +124,15 @@
             $stmt->closeCursor();
         }
 
+         //fonction permettant de lister les bBeneficiaire avec Code
+         public function Lister_BENC($code){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Beneficiaire Where CodeB=?");
+            $stmt->execute(array($code));
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
         //fonction permettant de tester l'existence du numero du beneficiaire
         public function checkTel($number){
             include('ConnectionBD.php');
@@ -135,18 +144,41 @@
         //fonction permettant de modifier un Beneficiaire
         public function Modifier_BEN($id){
             include('ConnectionBD.php');
-            $stmt = $BDD->prepare("UPDATE Beneficiaire set Nom=?,Prenom=?,Age=?,Sexe=?,Date_de_Naissance=?,Lieu_de_Naissance=?,Date_Entree_Programme=?,Niveau_Scolaire=?,Date_Sortie_Programme=?,Statut=?,Adresse=?,Telephone=?,Zone=?  where ID=?");
-            $stmt->execute(array($this->Nom,$this->Prenom,$this->Age,$this->Sexe,$this->Date_de_Naissance,$this->Date_Entree_Programme,$this->Niveau_Scolaire,$this->Date_Sortie_Programme,$this->Statut,$this->Adresse,$this->Telephone,$this->Zone,$id));
+            $stmt = $BDD->prepare("UPDATE Beneficiaire set Nom=?,Prenom=?,Age=?,Sexe=?,Date_de_Naissance=?,Lieu_de_Naissance=?,Niveau_Scolaire=?,Statut=?,Adresse=?,Telephone=?,Zone=?  where ID=?");
+            $stmt->execute(array($this->Nom,$this->Prenom,$this->Age,$this->Sexe,$this->Date_de_Naissance,$this->Lieu_de_Naissance,$this->Niveau_Scolaire,$this->Statut,$this->Adresse,$this->Telephone,$this->Zone,$id));
             return $stmt;
         }
 
          //fonction permettant de Lister Par ID
-         public function Lister_ID($id){
+         public function Lister_BE($id){
             include('ConnectionBD.php');
             $stmt = $BDD->prepare("SELECT * from Beneficiaire where ID=?");
             $stmt->execute(array($id));
-            $stmt->closeCursor();
             return $stmt;
+            $stmt->closeCursor();
+        }
+
+        //fonction permettant d'archiver un Beneficiaire
+        public function Archiver_BE($id){
+            $reponse=false;
+            include('ConnectionBD.php'); 
+            $stmt = $BDD->prepare("INSERT into Archive_Beneficiaire(ID,CodeB,Nom,Prenom,Age,Sexe,Date_de_Naissance,Lieu_de_Naissance,Niveau_Scolaire,Statut,Adresse,Telephone,Zone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->execute(array($this->IDB,$this->CodeB,$this->Nom,$this->Prenom,$this->Age,$this->Sexe,$this->Date_de_Naissance,$this->Lieu_de_Naissance,$this->Niveau_Scolaire,$this->Statut,$this->Adresse,$this->Telephone,$this->Zone));
+            if($stmt){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt1=$BDD->prepare("DELETE from Beneficiaire where ID=?");
+            $stmt1->execute(array($id));
+            if($stmt1){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt->closeCursor();
+            $stmt1->closeCursor();
+            return $reponse;
         }
     }
 ?>

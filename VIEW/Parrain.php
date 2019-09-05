@@ -24,7 +24,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-   Liste Des Utilisateurs
+  Enregistrer Parrain
   </title>
   <?php require_once('STYLES.php') ?>
 </head>
@@ -36,7 +36,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Utilisateurs</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Enregistrer Parrain</a>
         <!-- Form -->
         
         <!-- User -->
@@ -52,12 +52,17 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
       <div class="row">
         <div class="col">
           <div class="card shadow border-0 b1">
-         
-
+                <div class="row">
+                    <div class="col col-lg-6 " id="p">
+                        <a href="ParrainPhysique.php">Parrain Physique</a>
+                    </div>
+                    <div class="col col-lg-6 " id="p">
+                    <a href="ParrainMorale.php">Parrain Morale</a>
+                    </div>
+                </div>
           </div>
         </div>
       </div>
-      <!-- Footer -->
       <!-- Footer -->
       <?php require_once('footer.php') ?>
     </div>

@@ -16,10 +16,9 @@
 <?php
 session_start();
 if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
-    require_once('../MODEL/Beneficiaire.php');
-    $BE=new Beneficiaire("","","","","","","","","","","","","","","","","");
-    $reponse=$BE->Lister_BEN();
-
+    require_once('../MODEL/Parrain.php');
+    $PAR=new Parrain("","","","","","","");
+    $reponse=$PAR->Lister_PAR();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +27,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-   Lister Beneficiaire
+   Lister Parrain
   </title>
   <?php require_once('STYLES.php') ?>
 </head>
@@ -40,7 +39,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Beneficiaire</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Parrain</a>
         <!-- Form -->
        
         <!-- User -->
@@ -63,32 +62,35 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     <tr>
     <th class="th-sm">Action
 
-      </th>
-      <th class="th-sm">Code Beneficiaire
+    </th>
+    <th class="th-sm">Code
 
       </th>
-      <th class="th-sm">Nom Beneficiaire
+      <th class="th-sm">Type Parrain
 
       </th>
-      <th class="th-sm">Prenom Beneficiaire
+      <th class="th-sm">Type Parrainnage
 
       </th>
-      <th class="th-sm">Age
+      <th class="th-sm">Date Debut Parainnage
+
+      </th>
+      <th class="th-sm">Date Fin Parainnage
+
+      </th>
+      <th class="th-sm">Date Enregistrement
+
+      </th>
+      <th class="th-sm">Nom Institution
+
+      </th>
+      <th class="th-sm">Nom
+
+      </th>
+      <th class="th-sm">Prenom
 
       </th>
       <th class="th-sm">Sexe
-
-      </th>
-      <th class="th-sm">Date de Naissance
-
-      </th>
-      <th class="th-sm">Lieu de Naissance
-
-      </th>
-      <th class="th-sm">Niveau Scolaire
-
-      </th>
-      <th class="th-sm">Statut
 
       </th>
       <th class="th-sm">Adresse
@@ -97,82 +99,91 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
       <th class="th-sm">Telephone
 
       </th>
-      <th class="th-sm">Zone
+      <th class="th-sm">Email
 
       </th>
+      <th class="th-sm">Fax
+
+      </th>
+
     </tr>
   </thead>
   <tbody>
-  <?php
-        while($data=$reponse->fetch()){
-            
-    ?>
-        <tr>
-        <td>
-              <a href="../CONTROLLER/ArchiverBeneficiaire.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
-                <a  href="../CONTROLLER/EditBeneficiaire.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
+        <?php
+            while($data=$reponse->fetch()){
+        ?>
+            <tr>
+            <td>
+              <a href="../CONTROLLER/ArchiveParrain.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
+                <a  href="../CONTROLLER/ModifierParrain.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
                 <input type="hidden" <?php ?>>
             </td>
-            <td><?php print($data['CodeB']) ?></td>
-            <td><?php print($data['Nom']) ?></td>
-            <td><?php print($data['Prenom']) ?></td>
-            <td><?php print($data['Age']) ?></td>
-            <td><?php print($data['Sexe']) ?></td>
-            <td><?php print($data['Date_de_Naissance']) ?></td>
-            <td><?php print($data['Lieu_de_Naissance']) ?></td>
-            <td><?php print($data['Niveau_Scolaire']) ?></td>
-            <td><?php print($data['Statut']) ?></td>
-            <td><?php print($data['Adresse']) ?></td>
-            <td><?php print($data['Telephone']) ?></td>
-            <td><?php print($data['Zone']) ?></td>
-            
-           
-        </tr>
-    <?php
-    }
-    ?>
+                <td><?php print($data['Code']) ?></td>
+                <td><?php print($data['Type_Parrain']) ?></td>
+                <td><?php print($data['Type_Parrainage']) ?></td>
+                <td><?php print($data['DateD']) ?></td>
+                <td><?php print($data['DateF']) ?></td>
+                <td><?php print($data['Date_Enr']) ?></td>
+                <td><?php print($data['Nom_Institution']) ?></td>
+                <td><?php print($data['Nom']) ?></td>
+                <td><?php print($data['Prenom']) ?></td>
+                <td><?php print($data['Sexe']) ?></td>
+                <td><?php print($data['Adresse']) ?></td>
+                <td><?php print($data['Telephone']) ?></td>
+                <td><?php print($data['Email']) ?></td>
+                <td><?php print($data['Fax']) ?></td>
+            </tr>
+        <?php
+            }
+        ?>
   </tbody>
   <tfoot>
-  <th class="th-sm">Action
+  <tr>
+    <th class="th-sm">Action
 
-</th>
-<th class="th-sm">Code Beneficiaire
+    </th>
+    <th class="th-sm">Code
 
-</th>
-<th class="th-sm">Nom Beneficiaire
+      </th>
+      <th class="th-sm">Type Parrain
 
-</th>
-<th class="th-sm">Prenom Beneficiaire
+      </th>
+      <th class="th-sm">Type Parrainnage
 
-</th>
-<th class="th-sm">Age
+      </th>
+      <th class="th-sm">Date Debut Parainnage
 
-</th>
-<th class="th-sm">Sexe
+      </th>
+      <th class="th-sm">Date Fin Parainnage
 
-</th>
-<th class="th-sm">Date de Naissance
+      </th>
+      <th class="th-sm">Nom Institution
 
-</th>
-<th class="th-sm">Lieu de Naissance
+      </th>
+      <th class="th-sm">Nom
 
-</th>
-<th class="th-sm">Niveau Scolaire
+      </th>
+      <th class="th-sm">Prenom
 
-</th>
-<th class="th-sm">Statut
+      </th>
+      <th class="th-sm">Sexe
 
-</th>
-<th class="th-sm">Adresse
+      </th>
+      <th class="th-sm">Adresse
 
-</th>
-<th class="th-sm">Telephone
+      </th>
+      <th class="th-sm">Telephone
 
-</th>
-<th class="th-sm">Zone
+      </th>
+      <th class="th-sm">Email
 
-</th>
-</tr>
+      </th>
+      <th class="th-sm">Fax
+
+      </th>
+
+    </tr>
+
   </tfoot>
 </table>
             </div>

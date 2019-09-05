@@ -60,6 +60,9 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
           <table id="dtBasicExample" class="table table-striped table-hover table-borderless table-sm" cellspacing="0" width="100%">
           <thead>
     <tr>
+    <th class="th-sm">Action
+
+    </th>
       <th class="th-sm">Code Programme
 
       </th>
@@ -89,7 +92,11 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
             
     ?>
         <tr>
-
+        <td>
+              <a href="../CONTROLLER/ArchiverProgramme.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
+                <a  href="../CONTROLLER/EditProgramme.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
+                <input type="hidden" <?php ?>>
+            </td>
             <td><?php print($data['CodePR']) ?></td>
             <td><?php print($data['Nom']) ?></td>
             <td><?php print($data['date_DebutP']) ?></td>
@@ -97,18 +104,16 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
             <td><?php print($data['Description']) ?></td>
             <td><?php print($data['date_CreationP']) ?></td>
             <td><?php print($data['Etat_Budget']) ?></td>
-            <td>
-              <a href="../CONTROLLER/ArchiverProgramme.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
-                <a  href="../CONTROLLER/EditProgramme.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
-                <input type="hidden" <?php ?>>
-            </td>
+            
         </tr>
     <?php
     }
     ?>
   </tbody>
   <tfoot>
-  <tr>
+  <th class="th-sm">Action
+
+    </th>
       <th class="th-sm">Code Programme
 
       </th>

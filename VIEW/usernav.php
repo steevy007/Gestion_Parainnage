@@ -19,6 +19,21 @@
                 <span>My profile</span>
               </a>
               <div class="dropdown-divider"></div>
+              <?php
+          if($_SESSION['type']=='Administrateur'){
+        ?>
+              <a href="#" class="dropdown-item">
+                <i class="./ListUser.php"></i>
+                <span>Liste Utilisateur</span>
+              </a>
+              <a href="#" class="dropdown-item">
+                <i class=""></i>
+                <span>Archive Systeme</span>
+              </a>
+
+              <?php
+          }
+              ?>
               <a href="../CONTROLLER/Deconnecter.php" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
