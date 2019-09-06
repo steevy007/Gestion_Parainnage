@@ -15,10 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <?php
 session_start();
-if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Administrateur'){
-  require_once('../MODEL/Utilisateur.php');
-  $UT=new Utilisateur("","","","","","");
-  $reponse=$UT->List_User();
+if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
+    require_once('../MODEL/Budget.php');
+    $BU=new Budget("","","","","","","","");
+    $reponse=$BU->Lister_BU();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-   Liste Des Utilisateurs
+   Lister Budget
   </title>
   <?php require_once('STYLES.php') ?>
 </head>
@@ -39,12 +39,13 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Utilisateurs</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Dashboard.php">Lister Budget</a>
         <!-- Form -->
-        
+       
         <!-- User -->
-        <?php require_once('usernav.php')?>
+       
     <!-- End Navbar -->
+    <?php require_once('usernav.php')?>
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
@@ -55,64 +56,85 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
       <div class="row">
         <div class="col">
           <div class="card shadow border-0 b1">
-          <div class="table-responsive">
-          <table id="dtBasicExample" class="table table-striped table-hover table-borderless table-sm" cellspacing="0" width="100%">
-          <thead>
+            <div class="table-responsive">
+            <table id="dtBasicExample" class="table table-striped table-hover table-borderless table-sm" cellspacing="0" width="100%">
+            <thead>
     <tr>
-    <th class="th-sm">Nom
-
-    </th>
-      <th class="th-sm">Password
+    <th class="th-sm">Action
 
       </th>
-      <th class="th-sm">Type Utilisateur
+      <th class="th-sm">Code Budget
 
       </th>
-      <th class="th-sm">Email
+      <th class="th-sm">Montant
 
       </th>
-      <th class="th-sm">Etat Compte
+      <th class="th-sm">Devise
 
       </th>
+      <th class="th-sm">Date Debut Budget
+
+      </th>
+      <th class="th-sm">Date Fin Budget
+
+      </th>
+      <th class="th-sm">Description
+
+      </th>
+
+
     </tr>
   </thead>
   <tbody>
-  <?php
+    <?php
         while($data=$reponse->fetch()){
-            
     ?>
         <tr>
-          <td><?php print($data['Nom']) ?></td>
-          <td><?php print($data['Password']) ?></td>
-          <td><?php print($data['Type_User']) ?></td>
-          <td><?php print($data['Email']) ?></td>
-          <td><?php print($data['Etat_Compte']) ?></td>
+        <td>
+              <a href="../CONTROLLER/ArchiverBudget.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Trash_16px.png" alt=""></i></a>
+                <a  href="../CONTROLLER/EditBudget.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Edit_16px.png" alt=""></i></a>
+                
+            </td>
+            <td><?php print($data['Code']) ?></td>
+            <td><?php print($data['Montant']) ?></td>
+            <td><?php print($data['Devise']) ?></td>
+            <td><?php print($data['DateD']) ?></td>
+            <td><?php print($data['DateF']) ?></td>
+            <td><?php print($data['Description']) ?></td>
+          
         </tr>
     <?php
-    }
+        }
     ?>
   </tbody>
   <tfoot>
   <tr>
-    <th class="th-sm">Nom
-
-    </th>
-      <th class="th-sm">Password
+    <th class="th-sm">Action
 
       </th>
-      <th class="th-sm">Type Utilisateur
+      <th class="th-sm">Code Budget
 
       </th>
-      <th class="th-sm">Email
+      <th class="th-sm">Montant
 
       </th>
-      <th class="th-sm">Etat Compte
+      <th class="th-sm">Devise
 
       </th>
+      <th class="th-sm">Date Debut Budget
+
+      </th>
+      <th class="th-sm">Date Fin Budget
+
+      </th>
+      <th class="th-sm">Description
+
+      </th>
+
+
     </tr>
   </tfoot>
 </table>
-
             </div>
           </div>
         </div>
@@ -124,9 +146,9 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
   </div>
   <?php require_once('JS.php')?>
   <script>
-$(document).ready(function () {
-$('#dtBasicExample').DataTable();
-$('.dataTables_length').addClass('bs-select');
+    $(document).ready(function () {
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
 });
   </script>
 </body>

@@ -89,7 +89,8 @@
             $this->genererCode();
             $stmt = $BDD->prepare("INSERT into Evaluation(Code,IDB,Poid,Age,Hauteur,Perimetr_B,Date_R,Reference,Maladie,Diagnostique,Traitement,Vaccin) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->execute(array($this->CodeE,$this->IDB,$this->Poid,$this->Age,$this->Hauteur,$this->Perimetre_Branchial,$this->Date_Rendez_Vous,$this->References_Hopital,$this->Maladie,$this->Diagnostique,$this->Traitement,$this->Vaccin));
-            $stmt->closeCursor();
+            $stm1=$BDD->prepare("UPDATE beneficiaire SET Etat_Evaluation=? where ID=?");
+            $stm1->execute(array('DEFINI',$this->IDB));
             return $stmt;
         }
 

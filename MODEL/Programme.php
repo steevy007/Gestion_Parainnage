@@ -77,12 +77,37 @@
             return $stmt;
         }
 
-        public function Lister_PR1(){
+        public function Lister_PR2(){
             include('ConnectionBD.php');
             $stmt=$BDD->prepare("SELECT * from programme where Etat_Budget=?");
             $stmt->execute(array('NON DEFINI'));
             return $stmt;
         }
+
+        public function Lister_PR3(){
+            include('ConnectionBD.php');
+            $stmt=$BDD->prepare("SELECT CodePR from programme where Etat_Budget=?");
+            $stmt->execute(array('DEFINI'));
+            return $stmt;
+        }
+        public function Find_ID($code){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT ID from programme where CodePR=?");
+            $stmt->execute(array($code));
+            while($data=$stmt->fetch()){
+                return $data['ID'];
+            }
+        }
+
+        public function Find_DateS($code){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT date_FP from programme where CodePR=?");
+            $stmt->execute(array($code));
+            while($data=$stmt->fetch()){
+                return $data['date_FP'];
+            }
+        }
+
 
         //fonction permettant de modifier unprogramme
         public function Modifier_PR($id){

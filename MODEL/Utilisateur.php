@@ -36,8 +36,8 @@
         //Methode Permettant a un user de se connecter
         public function Connecter(){
             include('ConnectionBD.php');
-            $stmt=$BDD->prepare("SELECT * from Utilisateur where Email=? AND Password=?");
-            $stmt->execute(array($this->Email,$this->Password));
+            $stmt=$BDD->prepare("SELECT * from Utilisateur where Email=? AND Password=? AND Etat_Compte=?");
+            $stmt->execute(array($this->Email,$this->Password,'Actif'));
             return $stmt;       
         }
 
@@ -59,7 +59,9 @@
         //methode permettantd de lister les utilisateur
         public function List_User(){
             include('ConnectionBD.php');
-            $stmt=$BDD->prepare("INSERT INTO Utilisateur (Nom,Email,Password) VALUES() ");
+            $stmt=$BDD->prepare('SELECT * from Utilisateur');
+            $stmt->execute();
+            return $stmt;
         }
     }
 ?>

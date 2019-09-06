@@ -106,7 +106,7 @@
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="./inscBeneficiant.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Inscrire Beneficiant
             </a>
           </li>
@@ -131,7 +131,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerBudget.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Budget
             </a>
           </li>
@@ -143,6 +143,11 @@
           <li class="nav-item">
             <a class="nav-link" href="./ListerBeneficiaire.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Beneficiaire
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./ListerBeneficiant.php">
+              <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Beneficiant
             </a>
           </li>
           <li class="nav-item">
@@ -155,7 +160,7 @@
             }else{
           ?>
            <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="./inscBeneficiant.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Inscrire Beneficiant
             </a>
           </li>
@@ -180,7 +185,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./register.php">
+            <a class="nav-link" href="./ListerBudget">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Budget
             </a>
           </li>
@@ -192,6 +197,11 @@
           <li class="nav-item">
             <a class="nav-link" href="./ListerBeneficiaire.php">
               <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Beneficiaire
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./ListerBeneficiant.php">
+              <i class=""><img src="ICONES/icons8_Features_List_24px.png" alt=""></i> Lister Beneficiant
             </a>
           </li>
           <li class="nav-item">

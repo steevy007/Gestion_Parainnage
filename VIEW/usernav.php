@@ -22,8 +22,8 @@
               <?php
           if($_SESSION['type']=='Administrateur'){
         ?>
-              <a href="#" class="dropdown-item">
-                <i class="./ListUser.php"></i>
+              <a href="./ListUser.php" class="dropdown-item">
+                <i class=""></i>
                 <span>Liste Utilisateur</span>
               </a>
               <a href="#" class="dropdown-item">

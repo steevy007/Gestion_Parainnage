@@ -22,7 +22,7 @@ if(isset($_SESSION['errP']) AND !empty($_SESSION['errP'])){
 if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
     require_once('../MODEL/Beneficiaire.php');
     $BE=new Beneficiaire("","","","","","","","","","","","","","","","","");
-    $reponse=$BE->Lister_BEN();
+    $reponse=$BE->Lister_BEN1();
 
 ?>
 <!DOCTYPE html>

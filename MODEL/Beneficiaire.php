@@ -115,7 +115,42 @@
          
         }
 
+        //inscrire Beneficiant
+        public function Inscrire_Beneficiant(){
+            include('ConnectionBD.php');
+            $stmt=$BDD->prepare('INSERT into Beneficiant(IDB,IDP,DateE,DateS) values(?,?,?,?)');
+            $stmt->execute(array($this->IDB,$this->IDP,$this->Date_Entree_Programme,$this->Date_Sortie_Programme));
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
         //fonction permettant de lister les bBeneficiaire
+        public function Lister_Beneficiant(){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Beneficiant");
+            $stmt->execute();
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
+        public function Lister_BeneficiantID($ID){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Beneficiant WHERE ID=?");
+            $stmt->execute(array($ID));
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
+        public function Lister_Beneficiant1(){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("select * from beneficiant inner join beneficiaire inner join programme on beneficiant.IDB=beneficiaire.ID AND beneficiant.IDP=programme.ID");
+            $stmt->execute();
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
+       
+
         public function Lister_BEN(){
             include('ConnectionBD.php');
             $stmt = $BDD->prepare("SELECT * from Beneficiaire");
@@ -123,6 +158,40 @@
             return $stmt;
             $stmt->closeCursor();
         }
+
+        public function Lister_BEN1(){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Beneficiaire where Etat_Evaluation=?");
+            $stmt->execute(array('NON DEFINI'));
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
+        public function Lister_BEN2(){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT CodeB from Beneficiaire where Etat_Evaluation=?");
+            $stmt->execute(array('DEFINI'));
+            return $stmt;
+            $stmt->closeCursor();
+        }
+
+        public function Find_ID($code){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT ID from Beneficiaire where CodeB=?");
+            $stmt->execute(array($code));
+            while($data=$stmt->fetch()){
+                return $data['ID'];
+            }
+        }
+        
+        public function Verif_BEN($IDB,$IDP){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Beneficiant where IDB=? AND IDP=?");
+            $stmt->execute(array($IDB,$IDP));
+            return $stmt->rowCount();
+            $stmt->closeCursor();
+        }
+        
 
          //fonction permettant de lister les bBeneficiaire avec Code
          public function Lister_BENC($code){
@@ -170,6 +239,28 @@
                 $reponse=false;
             }
             $stmt1=$BDD->prepare("DELETE from Beneficiaire where ID=?");
+            $stmt1->execute(array($id));
+            if($stmt1){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt->closeCursor();
+            $stmt1->closeCursor();
+            return $reponse;
+        }
+
+        public function Archiver_Beneficiant($id){
+            $reponse=false;
+            include('ConnectionBD.php'); 
+            $stmt=$BDD->prepare('INSERT into archive_Beneficiant(ID,IDB,IDP,DateE,DateS) values(?,?,?,?,?)');
+            $stmt->execute(array($id,$this->IDB,$this->IDP,$this->Date_Entree_Programme,$this->Date_Sortie_Programme));
+            if($stmt){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt1=$BDD->prepare("DELETE from Beneficiant where ID=?");
             $stmt1->execute(array($id));
             if($stmt1){
                 $reponse=true;

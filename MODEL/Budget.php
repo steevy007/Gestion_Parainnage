@@ -42,72 +42,89 @@
 
         //fonction permettant de creer code pour un Budget
         public function genererCode(){
-            require_once('ConnectionBD.php');
-            while($this->verifierCode($this->codeBU)==true){
+            $this->CodeBU= "BU-" . rand(100000, 999999);
+            while($this->verifierCode($this->CodeBU)==1){
                 $this->codeBU = "BU-" . rand(100000, 999999);        
             }
-                $this->codeBU= "BU-" . rand(100000, 999999);
-                $stmt->closeCursor();
       }
 
         //fonction permettant de verifier code
         public function verifierCode($code){
-            require_once('ConnectionBD.php');
-             $selection="SELECT code from Budget where code=?";
-            $execution->execute(array($code));
-            if($result=$execution->fetch()){
-                return true;
-            }else{
-                return false;
-            }
-            $stmt->closeCursor();
+            include('ConnectionBD.php');
+             $selection=$BDD->prepare("SELECT code from Budget where code=?");
+            $selection->execute(array($code));
+            return $selection->rowCount();
         }
 
          //fonction permettant de creer un Budget
          public function Allouer_BU(){
-            require_once('ConnectionBD.php');
-            $stmt = $BDD->prepare("INSERT into Budget(CodeBU,IDP,Montant,Devise,Date_DebutBU,Date_FinBU,Description) VALUES(?,?,?,?,?,?,?)");
+            include('ConnectionBD.php');
+            $this->genererCode();
+            $stmt = $BDD->prepare("INSERT into Budget(Code,IDP,Montant,Devise,DateD,DateF,Description) VALUES(?,?,?,?,?,?,?)");
             $stmt->execute(array($this->CodeBU,$this->IDP,$this->Montant,$this->Devise,$this->Date_DebutBU,$this->Date_FinBU,$this->Description));
-            $stmt->closeCursor();
+            $stmt1=$BDD->prepare("UPDATE programme set Etat_Budget=? where ID=?");
+            $stmt1->execute(array('DEFINI',$this->IDP));
             return $stmt;
         }
 
         
         //fonction permettant de lister les budget
         public function Lister_BU(){
-            require_once('ConnectionBD.php');
-            $stmt = $BDD->("SELECT * from Budget");
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT * from Budget");
             $stmt->execute();
-            $stmt->closeCursor();
             return $stmt;
+            $stmt->closeCursor();
+        }
+
+           
+        //fonction permettant de retourner l ID du programme
+        public function GetIDPR($code){
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("SELECT ID from Programme where CodePR=?");
+            $stmt->execute(array($code));
+            while($data=$stmt->fetch()){
+                return $data['ID'];
+            }
         }
 
         //fonction permettant de modifier un Budget
         public function Modifier_BU($id){
-            require_once('ConnectionBD.php');
-            $stmt = $BDD->prepare("UPDATE Budget set Montant=?,Devise=?,Date_DebutBU=?,Date_FinBU=?,Description=? where ID=?");
+            include('ConnectionBD.php');
+            $stmt = $BDD->prepare("UPDATE Budget set Montant=?,Devise=?,DateD=?,DateF=?,Description=? where ID=?");
             $stmt->execute(array($this->Montant,$this->Devise,$this->Date_DebutBU,$this->Date_FinBU,$this->Description,$id));
             return $stmt;
         }
 
         //fonction permettant de Lister Par ID
         public function Lister_ID($id){
-            require_once('ConnectionBD.php');
+            include('ConnectionBD.php');
             $stmt = $BDD->prepare("SELECT * from Budget where ID=?");
             $stmt->execute(array($id));
-            $stmt->closeCursor();
             return $stmt;
+            $stmt->closeCursor();
         }
-        //fonction permettant d'archiver un programme
-        /*
-        public function Archiver_PR($id){
-            require_once('ConnectionBD.php'); 
-            $stmt = $BDD->prepare("INSERT into Archive VALUES(?,?,?,?,?,?,?)");
-            $stmt->execute(array($this->ID,$this->CodePR,$this->Nom,$this->Date_DebutP,$this->Date_FinP,$this->Description,$this->Date_CreationP));
-            $stmt1=$BDD->prepare("DELETE from programme where ID=?");
+        //fonction permettant d'archiver un Budget
+        public function Archiver_BU($id){
+            $reponse=false;
+            include('ConnectionBD.php'); 
+            $stmt = $BDD->prepare("INSERT into archive_budget(ID,Code,IDP,Montant,Devise,DateD,DateF,Description) VALUES(?,?,?,?,?,?,?,?)");
+            $stmt->execute(array($this->ID,$this->CodeBU,$this->IDP,$this->Montant,$this->Devise,$this->Date_DebutBU,$this->Date_FinBU,$this->Description));
+            if($stmt){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
+            $stmt1=$BDD->prepare("DELETE from Budget where ID=?");
             $stmt1->execute(array($id));
+            if($stmt1){
+                $reponse=true;
+            }else{
+                $reponse=false;
+            }
             $stmt->closeCursor();
             $stmt1->closeCursor();
-        }*/
+            return $reponse;
+        }
     }
 ?>
