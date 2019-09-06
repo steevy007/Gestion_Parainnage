@@ -21,7 +21,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
 
   require_once('../MODEL/Programme.php');
   $PR=new programme("","","","","","","","");
-  $resultat=$PR->Lister_PR1();
+  $resultat=$PR->Lister_PR2();
 ?>
 <!DOCTYPE html>
 <html lang="en">
