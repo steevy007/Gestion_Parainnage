@@ -52,7 +52,7 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id'])){
       <div class="row">
         <div class="col">
           <div class="card shadow border-0">
-            <div id="map-canvas" class="map-canvas" data-lat="40.748817" data-lng="-73.985428" style="height: 600px;"></div>
+          <img src="IMAGES/volunteers-3874924_1920.png" class="img-responsive" height="600px" alt="">
           </div>
         </div>
       </div>

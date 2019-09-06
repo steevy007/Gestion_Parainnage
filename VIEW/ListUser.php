@@ -59,6 +59,9 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
           <table id="dtBasicExample" class="table table-striped table-hover table-borderless table-sm" cellspacing="0" width="100%">
           <thead>
     <tr>
+    <th class="th-sm">Action
+
+    </th>
     <th class="th-sm">Nom
 
     </th>
@@ -82,6 +85,11 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
             
     ?>
         <tr>
+        <td>
+              <a href="../CONTROLLER/DisableUser.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Delete_24px.png" alt=""></i></a>
+              <a href="../CONTROLLER/ActiveUser.controller.php?ID=<?php print($data['ID']) ?> "><i><img src="ICONES/icons8_Ok_24px.png" alt=""></i></a>
+            
+            </td>
           <td><?php print($data['Nom']) ?></td>
           <td><?php print($data['Password']) ?></td>
           <td><?php print($data['Type_User']) ?></td>
@@ -94,6 +102,9 @@ if(isset($_SESSION['id']) AND !empty($_SESSION['id']) AND $_SESSION['type']=='Ad
   </tbody>
   <tfoot>
   <tr>
+  <th class="th-sm">Action
+
+  </th>
     <th class="th-sm">Nom
 
     </th>

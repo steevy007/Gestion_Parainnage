@@ -59,8 +59,22 @@
         //methode permettantd de lister les utilisateur
         public function List_User(){
             include('ConnectionBD.php');
-            $stmt=$BDD->prepare('SELECT * from Utilisateur');
-            $stmt->execute();
+            $stmt=$BDD->prepare('SELECT * from Utilisateur where Type_User=?');
+            $stmt->execute(array('Secretaire'));
+            return $stmt;
+        }
+
+        public function Desactive($id){
+            include('ConnectionBD.php');
+            $stmt=$BDD->prepare('UPDATE Utilisateur set Etat_Compte=? WHERE ID=?');
+            $stmt->execute(array('Inactif',$id));
+            return $stmt;
+        }
+
+        public function Active($id){
+            include('ConnectionBD.php');
+            $stmt=$BDD->prepare('UPDATE Utilisateur set Etat_Compte=? WHERE ID=?');
+            $stmt->execute(array('Actif',$id));
             return $stmt;
         }
     }
